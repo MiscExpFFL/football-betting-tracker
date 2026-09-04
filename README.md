@@ -35,3 +35,10 @@ The tracker assumes 1u = $100 and a 10u weekly cap, configured at the top of `da
 ## Time zone
 
 All scheduled kickoff times are converted to Pacific time and displayed as PST on the tracker.
+
+
+## v1.3 fixes
+- Strict two-team matchup validation prevents scores from unrelated games being attached to a wager.
+- Score lookup is scoped to NCAA vs NFL instead of searching both feeds together.
+- Cache-busting added for data.js and build marker shown in footer.
+- Pacific-time display from v1.2 retained.
