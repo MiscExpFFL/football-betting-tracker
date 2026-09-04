@@ -8,211 +8,56 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>2026 Football Betting Tracker</title>
-  <style>
-    :root{--bg:#0b0e12;--panel:#121720;--card:#171e29;--line:#293140;--text:#f3f6fb;--muted:#8f9bad;--green:#31c48d;--red:#f06464;--gold:#f7c948;--blue:#63a4ff;--orange:#ff9f43;--purple:#a78bfa;--shadow:0 12px 34px rgba(0,0,0,.24)}
-    *{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#090c10 0,#0d1117 36%,#0b0e12 100%);color:var(--text);font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif} button,select,input{font:inherit} button{cursor:pointer}
-    .wrap{max-width:1500px;margin:0 auto;padding:24px}.top{display:flex;gap:20px;align-items:flex-end;justify-content:space-between;margin-bottom:22px}.eyebrow{font-size:12px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--gold)}h1{margin:4px 0 4px;font-size:clamp(28px,4vw,46px);line-height:1.04}.sub{color:var(--muted);max-width:760px}.actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.btn{border:1px solid var(--line);background:#161d27;color:var(--text);padding:10px 13px;border-radius:10px;font-weight:750}.btn:hover{border-color:#46536a}.btn.primary{background:#f3f6fb;color:#0b0e12;border-color:#f3f6fb}.statusline{display:flex;align-items:center;gap:8px;margin-top:8px;color:var(--muted);font-size:12px}.dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}.dot.live{background:var(--green);box-shadow:0 0 0 4px rgba(49,196,141,.12)}
-    .league-summary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:22px}.league-summary{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:17px;box-shadow:var(--shadow)}.league-name{font-size:12px;color:var(--muted);font-weight:800;letter-spacing:.12em;text-transform:uppercase}.summary-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:12px}.metric{min-width:0}.metric .v{font-weight:900;font-size:22px;white-space:nowrap}.metric .k{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.07em}.pos{color:var(--green)!important}.neg{color:var(--red)!important}.neu{color:var(--text)!important}
-    .league-section{margin-top:22px;border:1px solid var(--line);background:rgba(18,23,32,.84);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}.league-header{padding:18px 18px 14px;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line)}.league-title h2{margin:0;font-size:25px}.league-title p{margin:4px 0 0;color:var(--muted)}.week-tools{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.week-tools select{background:#0f141c;color:var(--text);border:1px solid var(--line);border-radius:9px;padding:9px 34px 9px 10px}.week-strip{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:1px;background:var(--line);border-bottom:1px solid var(--line)}.week-strip .cell{background:#111720;padding:13px 15px}.week-strip .label{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.08em}.week-strip .num{font-weight:850;font-size:18px;margin-top:2px}.capbar{height:5px;background:#242d3a;margin-top:6px;border-radius:99px;overflow:hidden}.capbar span{display:block;height:100%;background:var(--gold);border-radius:99px}
-    .table-wrap{overflow-x:auto}.bets{width:100%;border-collapse:collapse;min-width:1080px}.bets th{position:sticky;top:0;background:#0f141c;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.08em;text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}.bets td{padding:12px;border-bottom:1px solid rgba(41,49,64,.72);vertical-align:top}.bets tr:last-child td{border-bottom:0}.bets tbody tr:hover{background:rgba(255,255,255,.018)}.category{font-weight:800;color:#dce4f1}.pick{font-weight:750}.meta{color:var(--muted);font-size:12px;margin-top:4px}.stake,.money{font-variant-numeric:tabular-nums;white-space:nowrap}.badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 8px;font-size:11px;font-weight:850;border:1px solid var(--line);white-space:nowrap}.badge.win{color:var(--green);border-color:rgba(49,196,141,.45);background:rgba(49,196,141,.08)}.badge.loss{color:var(--red);border-color:rgba(240,100,100,.45);background:rgba(240,100,100,.08)}.badge.push{color:var(--gold);border-color:rgba(247,201,72,.45);background:rgba(247,201,72,.08)}.badge.live{color:var(--blue);border-color:rgba(99,164,255,.45);background:rgba(99,164,255,.08)}.badge.open{color:var(--muted)}.badge.planned{color:var(--purple);border-color:rgba(167,139,250,.4);background:rgba(167,139,250,.08)}.leglist{display:flex;flex-direction:column;gap:4px}.leg{font-size:11px;color:var(--muted)}.leg strong{color:#dce4f1}.empty{padding:38px 18px;text-align:center;color:var(--muted)}
-    .season{border-top:1px solid var(--line);padding:16px 18px 18px}.season h3{margin:0 0 12px;font-size:16px}.season-table{width:100%;border-collapse:collapse}.season-table th,.season-table td{padding:8px 10px;border-bottom:1px solid rgba(41,49,64,.65);text-align:right;font-variant-numeric:tabular-nums}.season-table th:first-child,.season-table td:first-child{text-align:left}.season-table th{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}.season-table tr:last-child td{border-bottom:0}.weekly-chart{display:flex;align-items:flex-end;gap:5px;height:70px;padding-top:7px}.bar-wrap{flex:1;min-width:22px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:4px}.bar{width:75%;border-radius:4px 4px 2px 2px;background:var(--green);min-height:2px}.bar.neg{background:var(--red);border-radius:2px 2px 4px 4px}.bar-label{font-size:9px;color:var(--muted)}
-    dialog{border:1px solid var(--line);border-radius:16px;background:#111720;color:var(--text);width:min(760px,calc(100% - 28px));box-shadow:0 28px 90px rgba(0,0,0,.55);padding:0}dialog::backdrop{background:rgba(0,0,0,.72)}.modal-head{display:flex;justify-content:space-between;align-items:center;padding:15px 17px;border-bottom:1px solid var(--line)}.modal-head h3{margin:0}.modal-body{padding:16px;max-height:70vh;overflow:auto}.override-grid{display:grid;grid-template-columns:minmax(180px,1fr) 90px 90px 120px;gap:8px;align-items:center;margin-bottom:9px}.override-grid input,.override-grid select{width:100%;background:#0c1118;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px}.small{font-size:11px;color:var(--muted)}.footer{color:var(--muted);font-size:11px;padding:18px 4px 2px;text-align:center}
-    @media(max-width:900px){.wrap{padding:16px}.top{align-items:flex-start;flex-direction:column}.actions{justify-content:flex-start}.league-summary-grid{grid-template-columns:1fr}.summary-row{grid-template-columns:repeat(3,1fr)}.league-header{align-items:flex-start;flex-direction:column}.week-strip{grid-template-columns:repeat(3,1fr)}}
-    @media(max-width:560px){.summary-row{grid-template-columns:repeat(2,1fr)}.week-strip{grid-template-columns:repeat(2,1fr)}.override-grid{grid-template-columns:1fr 70px 70px}.override-grid select{grid-column:1/-1}.league-section{border-radius:12px}.metric .v{font-size:19px}}
-  </style>
+  <link rel="stylesheet" href="styles.css?v=1.4">
 </head>
 <body>
-<div class="wrap">
-  <header class="top">
-    <div>
-      <div class="eyebrow">2026 Football Betting Lab</div>
-      <h1>Live Betting Tracker</h1>
-      <div class="sub">NCAA and NFL stay completely separate. Every booked ticket is graded at its frozen BetWCS line, with weekly and season-long profit/loss tracked independently.</div>
-      <div class="statusline"><span id="liveDot" class="dot"></span><span id="feedStatus">Loading public score feed…</span></div>
+  <div class="wrap">
+    <header class="top">
+      <div>
+        <div class="eyebrow">2026 Football Betting Lab</div>
+        <h1>Live Betting Tracker</h1>
+        <div class="sub">NCAA and NFL stay separate. Exact BetWCS tickets are graded against public scores, with weekly exposure, live sweats, CLV, category performance and season-long profit/loss.</div>
+        <div class="statusline">
+          <span id="liveDot" class="dot"></span>
+          <span id="feedStatus">Loading public score feed…</span>
+          <span class="sep">•</span>
+          <span id="lastRefresh">Last refresh: —</span>
+          <span class="sep">•</span>
+          <span id="siteUpdated">Site updated: —</span>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn" id="refreshBtn" type="button">Refresh scores</button>
+        <button class="btn" id="manualBtn" type="button">Manual scores</button>
+        <button class="btn primary" id="exportBtn" type="button">Export results</button>
+      </div>
+    </header>
+
+    <section id="combinedSummary" class="combined-summary"></section>
+    <section id="leagueSummaries" class="league-summary-grid"></section>
+    <section id="liveSweat"></section>
+    <section id="exposurePanels"></section>
+    <main id="leagueSections"></main>
+    <section id="analytics"></section>
+
+    <div class="footer">Public scores are used only for grading. This site does not connect to BetWCS and cannot place wagers. Completed weeks can be permanently archived in data.js. · Build v1.4</div>
+  </div>
+
+  <dialog id="manualDialog">
+    <div class="modal-head">
+      <div><h3>Manual score overrides</h3><div class="small">Use only if the public feed is delayed or a matchup is not recognized.</div></div>
+      <button class="btn" id="closeManual" type="button">Close</button>
     </div>
-    <div class="actions">
-      <button class="btn" id="refreshBtn">Refresh scores</button>
-      <button class="btn" id="manualBtn">Manual scores</button>
-      <button class="btn primary" id="exportBtn">Export results</button>
+    <div class="modal-body">
+      <div id="overrideRows"></div>
+      <div class="modal-actions">
+        <button class="btn" id="clearOverrides" type="button">Clear overrides</button>
+        <button class="btn primary" id="saveOverrides" type="button">Save & grade</button>
+      </div>
     </div>
-  </header>
+  </dialog>
 
-  <div class="league-summary-grid" id="leagueSummaries"></div>
-  <div id="leagueSections"></div>
-  <div class="footer">Public scores are used only for grading. This site does not connect to BetWCS and cannot place wagers. Manual score overrides are stored only in this browser. · Build v1.3</div>
-</div>
-
-<dialog id="manualDialog">
-  <div class="modal-head"><div><h3>Manual score overrides</h3><div class="small">Use only if the public feed is delayed or a matchup is not recognized.</div></div><button class="btn" id="closeManual">Close</button></div>
-  <div class="modal-body"><div id="overrideRows"></div><div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px"><button class="btn" id="clearOverrides">Clear overrides</button><button class="btn primary" id="saveOverrides">Save & grade</button></div></div>
-</dialog>
-
-<script src="data.js?v=1.3"></script>
-<script>
-(() => {
-  const DATA = window.BET_TRACKER_DATA;
-  const unit = DATA.config.unitDollars;
-  const cap = DATA.config.weeklyCapUnits;
-  const state = { scores: {}, overrides: JSON.parse(localStorage.getItem('football-score-overrides') || '{}'), selectedWeeks: {} };
-  const $ = s => document.querySelector(s);
-  const money = n => `${n < 0 ? '-' : ''}$${Math.abs(n).toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:0})}`;
-  const units = n => `${(n/unit).toFixed(2)}u`;
-  const pct = n => `${n.toFixed(1)}%`;
-  const normalize = s => (s||'').toLowerCase().replace(/[^a-z0-9]/g,'');
-  const aliases = {
-    'san jose state':['sanjosestate','sanjosest','sjsu'], 'eastern michigan':['easternmichigan','emichigan','emu'],
-    'washington state':['washingtonstate','washingtonst','wsu'], 'washington':['washington','wash','uw'],
-    'western michigan':['westernmichigan','wmichigan','wmu'], 'michigan':['michigan','mich'],
-    'western kentucky':['westernkentucky','wku'], 'florida atlantic':['floridaatlantic','fau'],
-    'michigan state':['michiganstate','michiganst','msu'], 'colorado state':['coloradostate','coloradost','csu'],
-    'east carolina':['eastcarolina','ecu'], 'notre dame':['notredame','nd'], 'oklahoma state':['oklahomastate','oklahomast','okstate'],
-    'tulane':['tulane','tuln'], 'duke':['duke'], 'alabama':['alabama','ala'], 'auburn':['auburn','aub'],
-    'baylor':['baylor','bay'], 'wisconsin':['wisconsin','wis'], 'wyoming':['wyoming','wyo'], 'toledo':['toledo','tol'],
-    'nevada':['nevada','nev'], 'tulsa':['tulsa','tlsa'], 'florida':['florida','fla']
-  };
-  const variantsFor = input => {
-    const key=(input||'').toLowerCase();
-    return [...new Set([normalize(input),...(aliases[key]||[]).map(normalize)].filter(Boolean))];
-  };
-  const teamMatchScore = (input, candidate) => {
-    const b=normalize(candidate); if(!b) return 0;
-    const variants=variantsFor(input);
-    return variants.includes(b) ? 100 : 0;
-  };
-  const eventTeamScore = (input, team) => Math.max(0,...[team?.name,team?.short,team?.abbr].map(v=>teamMatchScore(input,v)));
-  const ymd = s => s.replaceAll('-','');
-  const flattenTickets = league => league.weeks.flatMap(w => w.tickets.map(t => ({...t, week:w.week, weekLabel:w.label})));
-
-  function extractEvent(ev){
-    const comp=ev.competitions?.[0]; if(!comp) return null;
-    const teams=(comp.competitors||[]).map(c=>({name:c.team?.displayName||c.team?.shortDisplayName||'', short:c.team?.shortDisplayName||'', abbr:c.team?.abbreviation||'', score:Number(c.score||0), home:c.homeAway==='home'}));
-    if(teams.length<2) return null;
-    const st=comp.status?.type||ev.status?.type||{};
-    return {id:ev.id, name:ev.name, teams, status:st.completed?'final':(st.state==='in'?'live':'scheduled'), detail:st.shortDetail||st.detail||'', date:ev.date};
-  }
-  function matchedIndex(ev, name){
-    if(!ev?.teams?.length) return -1;
-    const matches=ev.teams.map((team,i)=>({i,score:eventTeamScore(name,team)})).filter(x=>x.score===100);
-    return matches.length===1 ? matches[0].i : -1;
-  }
-  function eventMatchesLeg(ev, leg){
-    const teamIndex=matchedIndex(ev,leg.team), oppIndex=matchedIndex(ev,leg.opponent);
-    return teamIndex>=0 && oppIndex>=0 && teamIndex!==oppIndex;
-  }
-  function findScore(leg, leagueKey){
-    const override=state.overrides[leg.gameKey]; if(override) return override;
-    const events=state.scores[leagueKey]||[];
-    return events.find(ev=>eventMatchesLeg(ev,leg)) || null;
-  }
-  function side(ev, name){
-    const i=matchedIndex(ev,name);
-    return i>=0 ? ev.teams[i] : null;
-  }
-  function formatKickoff(iso){
-    if(!iso) return '';
-    const d=new Date(iso); if(Number.isNaN(d.getTime())) return '';
-    const parts=new Intl.DateTimeFormat('en-US',{timeZone:DATA.config.timezone||'America/Los_Angeles',month:'numeric',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}).formatToParts(d);
-    const get=t=>parts.find(p=>p.type===t)?.value||'';
-    return `${get('month')}/${get('day')} · ${get('hour')}:${get('minute')} ${get('dayPeriod')} ${DATA.config.timezoneLabel||'PST'}`;
-  }
-  function gradeLeg(leg, leagueKey){
-    const ev=findScore(leg, leagueKey); if(!ev) return {state:'open', label:'Awaiting score'};
-    const team=side(ev,leg.team), opp=side(ev,leg.opponent); if(!team||!opp) return {state:'open',label:'Matchup not mapped'};
-    const final=ev.status==='final', live=ev.status==='live';
-    let margin;
-    if(leg.betType==='spread') margin=(team.score + leg.line) - opp.score;
-    if(leg.betType==='moneyline') margin=team.score - opp.score;
-    if(leg.betType==='total') {
-      const total=team.score+opp.score; margin=leg.direction==='under' ? leg.line-total : total-leg.line;
-    }
-    let result = margin>0?'win':margin<0?'loss':'push';
-    const scoreText=`${team.name} ${team.score} – ${opp.score} ${opp.name}${ev.detail?` · ${ev.detail}`:''}`;
-    if(final) return {state:result,label:result.toUpperCase(),scoreText};
-    if(live) return {state:'live',label:`LIVE · ${result==='win'?'Ahead':result==='loss'?'Behind':'Push'}`,scoreText,current:result};
-    return {state:'open',label:'Not started',scoreText:formatKickoff(ev.date)||ev.detail||''};
-  }
-  function gradeTicket(ticket, leagueKey){
-    if(!ticket.booked) return {state:'planned',label:'OPEN SLOT',pl:0,legs:[]};
-    const legs=ticket.legs.map(leg=>gradeLeg(leg,leagueKey));
-    if(!legs.length) return {state:'open',label:'Awaiting data',pl:0,legs};
-    const finals=legs.filter(l=>['win','loss','push'].includes(l.state));
-    const anyLive=legs.some(l=>l.state==='live'); const anyOpen=legs.some(l=>l.state==='open');
-    if(legs.length===1){const l=legs[0]; if(l.state==='win')return{state:'win',label:'WIN',pl:ticket.toWin,legs}; if(l.state==='loss')return{state:'loss',label:'LOSS',pl:-ticket.risk,legs}; if(l.state==='push')return{state:'push',label:'PUSH',pl:0,legs}; if(anyLive)return{state:'live',label:'LIVE',pl:0,legs}; return{state:'open',label:'OPEN',pl:0,legs};}
-    if(finals.some(l=>l.state==='loss')) return {state:'loss',label:'LOSS',pl:-ticket.risk,legs};
-    if(finals.length===legs.length){ if(finals.every(l=>l.state==='win')) return {state:'win',label:'WIN',pl:ticket.toWin,legs}; return {state:'push',label:'PUSH / CHECK PAYOUT',pl:0,legs}; }
-    if(anyLive||finals.some(l=>l.state==='win')) return {state:'live',label:'LIVE',pl:0,legs};
-    return {state:'open',label:'OPEN',pl:0,legs};
-  }
-  function statsForTickets(tickets, leagueKey){
-    const booked=tickets.filter(t=>t.booked); const grades=booked.map(t=>gradeTicket(t,leagueKey));
-    const wins=grades.filter(g=>g.state==='win').length, losses=grades.filter(g=>g.state==='loss').length, pushes=grades.filter(g=>g.state==='push').length;
-    const risk=booked.reduce((a,t)=>a+t.risk,0); const pl=grades.reduce((a,g)=>a+g.pl,0); const settledRisk=booked.reduce((a,t,i)=>a+(['win','loss','push'].includes(grades[i].state)?t.risk:0),0);
-    return {booked:booked.length,wins,losses,pushes,risk,pl,roi:settledRisk?pl/settledRisk*100:0};
-  }
-  function classPL(v){return v>0?'pos':v<0?'neg':'neu'}
-  function renderSummaries(){
-    const el=$('#leagueSummaries'); el.innerHTML='';
-    Object.entries(DATA.leagues).forEach(([key,league])=>{
-      const s=statsForTickets(flattenTickets(league),key);
-      el.insertAdjacentHTML('beforeend',`<section class="league-summary"><div class="league-name">${league.label} · Season</div><div class="summary-row"><div class="metric"><div class="v">${s.wins}-${s.losses}${s.pushes?`-${s.pushes}`:''}</div><div class="k">Record</div></div><div class="metric"><div class="v">${units(s.risk)}</div><div class="k">Risked</div></div><div class="metric"><div class="v ${classPL(s.pl)}">${s.pl>=0?'+':''}${units(s.pl)}</div><div class="k">Profit / Loss</div></div><div class="metric"><div class="v ${classPL(s.roi)}">${s.roi>=0?'+':''}${pct(s.roi)}</div><div class="k">ROI</div></div><div class="metric"><div class="v">${s.booked}</div><div class="k">Tickets</div></div></div></section>`);
-    });
-  }
-  function seasonRows(league,key){
-    return league.weeks.map(w=>({week:w.week,label:w.label,...statsForTickets(w.tickets,key)}));
-  }
-  function renderLeague(key,league){
-    if(!state.selectedWeeks[key]) state.selectedWeeks[key]=league.weeks[0]?.week||1;
-    const week=league.weeks.find(w=>w.week==state.selectedWeeks[key])||league.weeks[0];
-    const s=statsForTickets(week.tickets,key); const capPct=Math.min(100,(s.risk/unit)/cap*100); const rows=seasonRows(league,key);
-    const weekOptions=league.weeks.map(w=>`<option value="${w.week}" ${w.week===week.week?'selected':''}>${w.label}</option>`).join('');
-    const ticketsHtml=week.tickets.length?week.tickets.map(t=>{
-      const g=gradeTicket(t,key); const legHtml=g.legs.map(l=>`<div class="leg"><strong>${l.label}</strong>${l.scoreText?` · ${l.scoreText}`:''}</div>`).join('');
-      return `<tr><td><div class="category">${t.category}</div><div class="meta">${t.id}</div></td><td><div class="pick">${t.description}</div><div class="meta">${t.odds}</div></td><td class="stake">${t.booked?money(t.risk):'—'}<div class="meta">${t.booked?units(t.risk):''}</div></td><td class="stake">${t.booked?money(t.toWin):'—'}</td><td><span class="badge ${g.state}">${g.label}</span></td><td class="money ${classPL(g.pl)}">${['win','loss','push'].includes(g.state)?`${g.pl>=0?'+':''}${money(g.pl)}`:'—'}</td><td><div class="leglist">${legHtml||'<span class="small">Waiting for game-day line</span>'}</div></td></tr>`;
-    }).join(''):`<tr><td colspan="7"><div class="empty">No ${league.label} wagers entered for ${week.label} yet.</div></td></tr>`;
-    const maxAbs=Math.max(1,...rows.map(r=>Math.abs(r.pl)));
-    const bars=rows.map(r=>`<div class="bar-wrap" title="${r.label}: ${money(r.pl)}"><div class="bar ${r.pl<0?'neg':''}" style="height:${Math.max(2,Math.abs(r.pl)/maxAbs*50)}px"></div><div class="bar-label">W${r.week}</div></div>`).join('');
-    const seasonTable=rows.map(r=>`<tr><td>${r.label}</td><td>${r.wins}-${r.losses}${r.pushes?`-${r.pushes}`:''}</td><td>${units(r.risk)}</td><td class="${classPL(r.pl)}">${r.pl>=0?'+':''}${money(r.pl)}</td><td class="${classPL(r.pl)}">${r.pl>=0?'+':''}${units(r.pl)}</td><td class="${classPL(r.roi)}">${r.roi>=0?'+':''}${pct(r.roi)}</td></tr>`).join('');
-    return `<section class="league-section" data-league="${key}"><div class="league-header"><div class="league-title"><h2>${league.label}</h2><p>Separate ${league.label} ledger · week-by-week and season P/L</p></div><div class="week-tools"><label class="small">View week</label><select class="weekSelect" data-league="${key}">${weekOptions}</select></div></div><div class="week-strip"><div class="cell"><div class="label">Week record</div><div class="num">${s.wins}-${s.losses}${s.pushes?`-${s.pushes}`:''}</div></div><div class="cell"><div class="label">Booked exposure</div><div class="num">${units(s.risk)}</div><div class="capbar"><span style="width:${capPct}%"></span></div></div><div class="cell"><div class="label">Weekly cap left</div><div class="num">${Math.max(0,cap-s.risk/unit).toFixed(2)}u</div></div><div class="cell"><div class="label">Week P/L</div><div class="num ${classPL(s.pl)}">${s.pl>=0?'+':''}${units(s.pl)}</div></div><div class="cell"><div class="label">Week ROI</div><div class="num ${classPL(s.roi)}">${s.roi>=0?'+':''}${pct(s.roi)}</div></div><div class="cell"><div class="label">Booked tickets</div><div class="num">${s.booked}</div></div></div><div class="table-wrap"><table class="bets"><thead><tr><th>Category</th><th>Booked wager</th><th>Risk</th><th>To win</th><th>Status</th><th>Realized P/L</th><th>Live legs / scores</th></tr></thead><tbody>${ticketsHtml}</tbody></table></div><div class="season"><h3>${league.label} season — weekly profit/loss</h3><div class="weekly-chart">${bars}</div><div class="table-wrap"><table class="season-table"><thead><tr><th>Week</th><th>Record</th><th>Risked</th><th>P/L $</th><th>P/L Units</th><th>ROI</th></tr></thead><tbody>${seasonTable}</tbody></table></div></div></section>`;
-  }
-  function render(){
-    renderSummaries(); $('#leagueSections').innerHTML=Object.entries(DATA.leagues).map(([k,l])=>renderLeague(k,l)).join('');
-    document.querySelectorAll('.weekSelect').forEach(sel=>sel.addEventListener('change',e=>{state.selectedWeeks[e.target.dataset.league]=Number(e.target.value);render();}));
-  }
-  async function fetchLeague(key,league){
-    const ranges=[...new Set(league.weeks.filter(w=>w.tickets.some(t=>t.booked)).map(w=>`${ymd(w.dateStart)}-${ymd(w.dateEnd)}`))];
-    const events=[];
-    for(const range of ranges){
-      try{const url=`https://site.api.espn.com/apis/site/v2/sports/football/${league.espnPath}/scoreboard?dates=${range}&limit=200`; const res=await fetch(url,{cache:'no-store'}); if(!res.ok) throw new Error(String(res.status)); const json=await res.json(); events.push(...(json.events||[]).map(extractEvent).filter(Boolean));}catch(err){console.warn('Score feed error',key,err);}
-    }
-    state.scores[key]=events; return events.length;
-  }
-  async function refresh(){
-    const btn=$('#refreshBtn'); btn.disabled=true; btn.textContent='Refreshing…'; $('#feedStatus').textContent='Refreshing public score feed…'; $('#liveDot').classList.remove('live');
-    let count=0; for(const [k,l] of Object.entries(DATA.leagues)) count+=await fetchLeague(k,l);
-    $('#feedStatus').textContent=count?`Public score feed connected · ${count} games loaded · auto-refresh every ${DATA.config.refreshSeconds}s`:'Public score feed unavailable · manual overrides remain available';
-    $('#liveDot').classList.toggle('live',count>0); btn.disabled=false; btn.textContent='Refresh scores'; render();
-  }
-  function uniqueGames(){
-    const map=new Map(); Object.values(DATA.leagues).forEach(l=>l.weeks.forEach(w=>w.tickets.forEach(t=>t.legs.forEach(leg=>{if(!map.has(leg.gameKey))map.set(leg.gameKey,{...leg,league:l.label});})))); return [...map.values()];
-  }
-  function openManual(){
-    const rows=uniqueGames().map(g=>{
-      const o=state.overrides[g.gameKey]||{}; return `<div class="override-grid"><div><strong>${g.team} vs ${g.opponent}</strong><div class="small">${g.league} · ${g.gameKey}</div></div><input aria-label="${g.team} score" type="number" min="0" max="200" step="1" data-key="${g.gameKey}" data-field="teamScore" value="${o.teamScore??''}" placeholder="${g.team} score"><input aria-label="${g.opponent} score" type="number" min="0" max="200" step="1" data-key="${g.gameKey}" data-field="oppScore" value="${o.oppScore??''}" placeholder="Opp"><select data-key="${g.gameKey}" data-field="status"><option value="" ${!o.status?'selected':''}>No override</option><option value="scheduled" ${o.status==='scheduled'?'selected':''}>Scheduled</option><option value="live" ${o.status==='live'?'selected':''}>Live</option><option value="final" ${o.status==='final'?'selected':''}>Final</option></select></div>`;
-    }).join(''); $('#overrideRows').innerHTML=rows; $('#manualDialog').showModal();
-  }
-  function saveOverrides(){
-    const grouped={}; document.querySelectorAll('#overrideRows [data-key]').forEach(el=>{const k=el.dataset.key; grouped[k]??={}; grouped[k][el.dataset.field]=el.value;});
-    const games=uniqueGames(); games.forEach(g=>{const x=grouped[g.gameKey]; if(!x?.status){delete state.overrides[g.gameKey];return;} const teamScore=Math.max(0,Number(x.teamScore||0)), oppScore=Math.max(0,Number(x.oppScore||0)); state.overrides[g.gameKey]={status:x.status,detail:x.status==='final'?'Final':x.status==='live'?'Manual live score':'Scheduled',teams:[{name:g.team,short:g.team,abbr:'',score:teamScore,home:false},{name:g.opponent,short:g.opponent,abbr:'',score:oppScore,home:true}],teamScore,oppScore};});
-    localStorage.setItem('football-score-overrides',JSON.stringify(state.overrides)); $('#manualDialog').close(); render();
-  }
-  function exportResults(){
-    const out={generatedAt:new Date().toISOString(),season:DATA.config.season,unitDollars:unit,leagues:{}};
-    Object.entries(DATA.leagues).forEach(([k,l])=>{out.leagues[k]={weeks:l.weeks.map(w=>({week:w.week,label:w.label,summary:statsForTickets(w.tickets),tickets:w.tickets.map(t=>({id:t.id,category:t.category,description:t.description,risk:t.risk,toWin:t.toWin,odds:t.odds,booked:t.booked,grade:gradeTicket(t)}))}))};});
-    const blob=new Blob([JSON.stringify(out,null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`football-betting-results-${new Date().toISOString().slice(0,10)}.json`; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),500);
-  }
-  $('#refreshBtn').addEventListener('click',refresh); $('#manualBtn').addEventListener('click',openManual); $('#exportBtn').addEventListener('click',exportResults); $('#closeManual').addEventListener('click',()=>$('#manualDialog').close()); $('#saveOverrides').addEventListener('click',saveOverrides); $('#clearOverrides').addEventListener('click',()=>{state.overrides={};localStorage.removeItem('football-score-overrides');openManual();render();});
-  render(); refresh(); setInterval(refresh,Math.max(30,DATA.config.refreshSeconds)*1000);
-})();
-</script>
+  <script src="data.js?v=1.4"></script>
+  <script src="app.js?v=1.4"></script>
 </body>
 </html>
