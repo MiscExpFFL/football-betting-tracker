@@ -6,8 +6,8 @@ window.BET_TRACKER_DATA = {
     refreshSeconds: 60,
     timezone: 'America/Los_Angeles',
     timezoneLabel: 'PT',
-    build: 'v1.4',
-    lastSiteUpdate: '2026-09-03T18:10:00-07:00'
+    build: 'v1.5',
+    lastSiteUpdate: '2026-09-03T19:12:00-07:00'
   },
   leagues: {
     NCAA: {
