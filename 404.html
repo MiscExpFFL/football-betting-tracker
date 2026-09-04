@@ -10,6 +10,7 @@
   <title>2026 Football Betting Tracker</title>
   <link rel="stylesheet" href="styles.css?v=1.4">
   <link rel="stylesheet" href="v15.css?v=1.5">
+  <link rel="stylesheet" href="v16.css?v=1.6">
 </head>
 <body>
   <div class="wrap">
@@ -17,25 +18,30 @@
       <div>
         <div class="eyebrow">2026 Football Betting Lab</div>
         <h1>Live Betting Tracker</h1>
-        <div class="sub">NCAA and NFL stay separate. Exact BetWCS tickets are graded against public scores, with live grading, risk concentration, CLV, streaks, drawdown, category performance and permanent week-by-week profit/loss.</div>
+        <div class="sub">NCAA and NFL stay separate. Exact BetWCS tickets are graded against public scores, with a game-day control center, live grading, risk concentration, CLV, streaks, drawdown, category performance and permanent week-by-week profit/loss.</div>
         <div class="statusline"><span id="liveDot" class="dot"></span><span id="feedStatus">Loading public score feed…</span><span class="sep">•</span><span id="lastRefresh">Last refresh: —</span><span class="sep">•</span><span id="siteUpdated">Site updated: —</span></div>
       </div>
       <div class="actions"><button class="btn" id="refreshBtn" type="button">Refresh scores</button><button class="btn" id="manualBtn" type="button">Manual scores</button><button class="btn primary" id="exportBtn" type="button">Export results</button></div>
     </header>
     <section id="combinedSummary" class="combined-summary"></section>
     <section id="leagueSummaries" class="league-summary-grid"></section>
-    <section id="performancePulse"></section>
     <section id="liveSweat"></section>
+    <section id="nextUp"></section>
+    <section id="gameDayScenarios"></section>
+    <section id="performancePulse"></section>
     <section id="exposurePanels"></section>
     <main id="leagueSections"></main>
+    <section id="weekRecaps"></section>
     <section id="analytics"></section>
-    <div class="footer">Public scores are used only for grading. This site does not connect to BetWCS and cannot place wagers. Completed weeks can be permanently archived in data.js. · Build v1.5</div>
+    <div class="footer">Public scores are used only for grading. This site does not connect to BetWCS and cannot place wagers. Completed weeks can be permanently archived in data.js. · Build v1.6</div>
   </div>
   <dialog id="manualDialog"><div class="modal-head"><div><h3>Manual score overrides</h3><div class="small">Use only if the public feed is delayed or a matchup is not recognized.</div></div><button class="btn" id="closeManual" type="button">Close</button></div><div class="modal-body"><div id="overrideRows"></div><div class="modal-actions"><button class="btn" id="clearOverrides" type="button">Clear overrides</button><button class="btn primary" id="saveOverrides" type="button">Save & grade</button></div></div></dialog>
-  <script src="data.js?v=1.5"></script>
-  <script src="core.js?v=1.5"></script>
-  <script src="ui.js?v=1.5"></script>
-  <script src="analytics.js?v=1.5"></script>
-  <script src="boot.js?v=1.5"></script>
+  <script src="data.js?v=1.6"></script>
+  <script>if(window.BET_TRACKER_DATA){window.BET_TRACKER_DATA.config.build='v1.6';window.BET_TRACKER_DATA.config.lastSiteUpdate='2026-09-03T19:39:00-07:00';}</script>
+  <script src="core.js?v=1.6"></script>
+  <script src="ui.js?v=1.6"></script>
+  <script src="analytics.js?v=1.6"></script>
+  <script src="gameday.js?v=1.6"></script>
+  <script src="boot.js?v=1.6"></script>
 </body>
 </html>
