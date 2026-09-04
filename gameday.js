@@ -1,7 +1,7 @@
 (() => {
   const B = window.BT;
   if (!B) return;
-  const {DATA, unit, cap, $, esc, money, unitFmt, pct, ticketSnapshot, leagueStats, weekStats, gameExposure, allTickets, weekState} = B;
+  const {DATA, CFG, unit, cap, state, $, esc, money, unitFmt, pct, ticketSnapshot, leagueStats, weekStats, gameExposure, allTickets, clvStats, weekState} = B;
 
   const pnlClass = v => v > 0 ? 'pos' : v < 0 ? 'neg' : 'neu';
   const metric = (label, value, cls='neu') => `<div class="metric"><div class="v ${cls}">${value}</div><div class="k">${label}</div></div>`;
@@ -18,6 +18,20 @@
     return src.filter(t=>t.booked);
   }
 
+  function currentGameExposure(key){
+    const week=activeWeekFor(key); if(!week) return [];
+    const map=new Map();
+    (week.tickets||[]).filter(t=>t.booked).forEach(t=>{
+      const seen=new Set();
+      (t.legs||[]).forEach(l=>{
+        if(seen.has(l.gameKey))return; seen.add(l.gameKey);
+        const g=map.get(l.gameKey)||{gameKey:l.gameKey,name:`${l.team} vs ${l.opponent}`,risk:0,tickets:0};
+        g.risk+=Number(t.risk||0); g.tickets+=1; map.set(l.gameKey,g);
+      });
+    });
+    return [...map.values()].sort((a,b)=>b.risk-a.risk);
+  }
+
   function seasonPulseV16(){
     const rows=Object.keys(DATA.leagues).map(key=>{
       const stats=leagueStats(key), tickets=bookedTickets(key), settled=stats.settledRisk>0;
@@ -26,7 +40,7 @@
       const avgRisk=tickets.length?tickets.reduce((a,t)=>a+Number(t.risk||0),0)/tickets.length:0;
       const parlays=tickets.filter(t=>['Parlay','Teaser'].includes(t.betTypeGroup)).length;
       const straight=tickets.length-parlays;
-      const games=gameExposure(key), largest=games[0];
+      const games=currentGameExposure(key), largest=games[0];
       const settledSnaps=stats.snaps.filter(x=>['win','loss','push'].includes(x.s.status));
       const decisions=settledSnaps.filter(x=>['win','loss'].includes(x.s.result));
       const hit=decisions.length?100*decisions.filter(x=>x.s.result==='win').length/decisions.length:null;
@@ -98,9 +112,9 @@
 
   function renderExposureV16(){
     const html=Object.keys(DATA.leagues).map(key=>{
-      const rows=gameExposure(key), max=Math.max(1,...rows.map(r=>r.risk)), leagueRisk=Math.max(1,leagueStats(key).risk), top=rows.slice(0,5), rest=rows.slice(5);
+      const week=activeWeekFor(key), rows=currentGameExposure(key), max=Math.max(1,...rows.map(r=>r.risk)), leagueRisk=Math.max(1,week?bookedTickets(key,week).reduce((a,t)=>a+Number(t.risk||0),0):0), top=rows.slice(0,5), rest=rows.slice(5);
       const rowHtml=r=>`<div class="exposure-row"><div><div class="exposure-name">${esc(r.name)}</div><div class="exposure-meta">${r.tickets} ticket${r.tickets===1?'':'s'} · ${pct(100*r.risk/leagueRisk)} of ticket risk touched</div></div><div class="exposure-bar"><span style="width:${Math.max(4,100*r.risk/max)}%"></span></div><div class="exposure-amt">${unitFmt(r.risk)}</div></div>`;
-      return `<div class="panel exposure-panel"><div class="section-title"><h3>${esc(key)} Game Exposure</h3><div class="hint">Ticket risk touched; multi-leg tickets can make percentages total above 100%.</div></div>${rows.length?`<div class="exposure-list">${top.map(rowHtml).join('')}</div>${rest.length?`<details class="exposure-more"><summary>Show ${rest.length} more game${rest.length===1?'':'s'}</summary><div class="exposure-list extra-exposure">${rest.map(rowHtml).join('')}</div></details>`:''}`:`<div class="empty">No booked wagers yet.</div>`}</div>`;
+      return `<div class="panel exposure-panel"><div class="section-title"><h3>${esc(key)} Game Exposure</h3><div class="hint">Current-week ticket risk touched; multi-leg tickets can make percentages total above 100%.</div></div>${rows.length?`<div class="exposure-list">${top.map(rowHtml).join('')}</div>${rest.length?`<details class="exposure-more"><summary>Show ${rest.length} more game${rest.length===1?'':'s'}</summary><div class="exposure-list extra-exposure">${rest.map(rowHtml).join('')}</div></details>`:''}`:`<div class="empty">No booked wagers yet.</div>`}</div>`;
     }).join('');
     $('#exposurePanels').innerHTML=`<div class="exposure-wrap">${html}</div>`;
   }
