@@ -1,44 +1,46 @@
-# 2026 Football Live Betting Tracker
+# 2026 Football Betting Tracker
 
-Static, GitHub Pages-ready dashboard for the weekly NCAA + NFL betting project.
+Static GitHub Pages tracker for the 2026 NCAA and NFL betting project.
 
-## What it does
-- Keeps NCAA and NFL in separate tables and separate season ledgers.
-- Tracks weekly record, risk, realized profit/loss, units, and ROI.
-- Tracks cumulative season record/P&L independently for NCAA and NFL.
-- Grades straight spreads, totals, moneylines, 3-team parlays, and teasers from public ESPN scores.
-- Refreshes scores every 60 seconds while the page is open.
-- Includes manual score overrides if a public matchup is delayed or not recognized.
-- Exports a JSON snapshot of current grades/results.
-- Never connects to BetWCS and never places a wager.
+## Structure
 
-## Current seed
-NCAA Week 1 includes the 12 wagers confirmed booked on BetWCS ($612 / 6.12u total exposure). The Notre Dame alternate-line slot is shown as open and is not counted in exposure. NFL Week 1 is ready for wagers when they are selected.
+- `index.html` — page shell
+- `styles.css` — responsive desktop/mobile styling
+- `app.js` — score-feed, grading, live-sweat, exposure, P/L and analytics logic
+- `data.js` — the season ledger and the only file that normally changes when weekly bets are added
+- `404.html` — GitHub Pages fallback
 
-## Put it on GitHub Pages
-1. Create a new GitHub repository.
-2. Upload `index.html` and `data.js` to the repository root.
-3. In GitHub: Settings → Pages → Deploy from a branch → `main` / root.
-4. GitHub will provide the public URL.
+## Weekly workflow
 
-## Add future weeks
-Edit `data.js`. Each league has a `weeks` array. Copy a week object, change the week number/date range, and add ticket objects. The site automatically adds that week to the league selector and season P/L table.
+1. Add the exact booked BetWCS tickets to `data.js`.
+2. NCAA and NFL remain separate by league and week.
+3. Each leg supports an `espnEventId`. When a verified ESPN event ID is available, the tracker uses it first; otherwise it falls back to strict two-team matching.
+4. Public ESPN scores are used for live grading only.
+5. When a week is complete, freeze each ticket with `result`, `pnl`, and `settledAt`, set the week `archived: true`, and optionally enter `closingLine` / `closingOdds` for CLV. Archived weeks then remain a permanent season ledger independent of the live feed.
 
-## Ticket fields
-- `booked`: only booked tickets count toward exposure and P/L.
-- `risk`, `toWin`: exact BetWCS dollar amounts.
-- `odds`: frozen display price.
-- `legs`: used for live grading. Supported `betType` values: `spread`, `moneyline`, `total`.
+## v1.4 features
 
-The tracker assumes 1u = $100 and a 10u weekly cap, configured at the top of `data.js`.
+- Separate NCAA and NFL ledgers
+- Combined All Football summary without mixing the underlying records
+- Live Sweat panel
+- Game-level exposure panel
+- Weekly risk, settled risk, open risk, realized P/L, ROI and remaining 10u cap
+- Profit still alive
+- ESPN event-ID support with strict two-team fallback matching
+- Desktop table + mobile betting cards
+- All / Live / Upcoming / Settled filters
+- Weekly and cumulative season P/L
+- Category and bet-type leaderboards
+- CLV tracking
+- Best/worst week and biggest win/loss
+- Manual score overrides and JSON export
+- Pacific Time (`PT`) display
+- Last score refresh and last site update timestamps
 
-## Time zone
+## Standing betting rules
 
-All scheduled kickoff times are converted to Pacific time and displayed as PST on the tracker.
-
-
-## v1.3 fixes
-- Strict two-team matchup validation prevents scores from unrelated games being attached to a wager.
-- Score lookup is scoped to NCAA vs NFL instead of searching both feeds together.
-- Cache-busting added for data.js and build marker shown in footer.
-- Pacific-time display from v1.2 retained.
+- 1u = $100
+- 10u maximum exposure per league/week
+- NCAA and NFL tracked separately
+- Booked BetWCS line/price is frozen for grading
+- The site never connects to BetWCS and cannot place wagers
