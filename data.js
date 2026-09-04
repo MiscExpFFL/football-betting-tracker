@@ -4,7 +4,8 @@ window.BET_TRACKER_DATA = {
     unitDollars: 100,
     weeklyCapUnits: 10,
     refreshSeconds: 60,
-    timezone: 'America/Los_Angeles'
+    timezone: 'America/Los_Angeles',
+    timezoneLabel: 'PST'
   },
   leagues: {
     NCAA: {

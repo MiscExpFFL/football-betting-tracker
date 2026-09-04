@@ -63,10 +63,19 @@
     'michigan state':['michiganstate','michiganst','msu'], 'colorado state':['coloradostate','coloradost','csu'],
     'east carolina':['eastcarolina','ecu'], 'notre dame':['notredame','nd'], 'oklahoma state':['oklahomastate','oklahomast','okstate']
   };
-  const teamMatches = (input, candidate) => {
-    const a=normalize(input), b=normalize(candidate); if(!a||!b) return false; if(a===b||a.includes(b)||b.includes(a)) return true;
-    const aa=aliases[(input||'').toLowerCase()]||[]; return aa.some(x=>normalize(x)===b||b.includes(normalize(x))||normalize(x).includes(b));
+  const teamMatchScore = (input, candidate) => {
+    const b=normalize(candidate); if(!b) return 0;
+    const key=(input||'').toLowerCase();
+    const variants=[normalize(input),...(aliases[key]||[]).map(normalize)].filter(Boolean);
+    let best=0;
+    for(const a of variants){
+      if(a===b) best=Math.max(best,100);
+      else if(b.startsWith(a) && a.length>=5) best=Math.max(best,70+Math.min(20,a.length));
+    }
+    return best;
   };
+  const teamMatches = (input, candidate) => teamMatchScore(input,candidate)>0;
+  const eventTeamScore = (input, team) => Math.max(...[team?.name,team?.short,team?.abbr].map(v=>teamMatchScore(input,v)));
   const ymd = s => s.replaceAll('-','');
   const flattenTickets = league => league.weeks.flatMap(w => w.tickets.map(t => ({...t, week:w.week, weekLabel:w.label})));
 
@@ -80,12 +89,23 @@
   function findScore(leg){
     const override=state.overrides[leg.gameKey]; if(override) return override;
     const all=Object.values(state.scores).flat();
-    return all.find(ev => {
-      const names=ev.teams.flatMap(t=>[t.name,t.short,t.abbr]);
-      return names.some(n=>teamMatches(leg.team,n)) && names.some(n=>teamMatches(leg.opponent,n));
-    }) || null;
+    return all.find(ev => ev.teams.some((team,i)=>
+      eventTeamScore(leg.team,team)>0 && ev.teams.some((opp,j)=>j!==i && eventTeamScore(leg.opponent,opp)>0)
+    )) || null;
   }
-  function side(ev, name){ return ev?.teams?.find(t=>[t.name,t.short,t.abbr].some(n=>teamMatches(name,n))); }
+  function side(ev, name){
+    if(!ev?.teams?.length) return null;
+    return ev.teams.map(t=>({t,score:eventTeamScore(name,t)})).sort((a,b)=>b.score-a.score)[0]?.score>0
+      ? ev.teams.map(t=>({t,score:eventTeamScore(name,t)})).sort((a,b)=>b.score-a.score)[0].t
+      : null;
+  }
+  function formatKickoff(iso){
+    if(!iso) return '';
+    const d=new Date(iso); if(Number.isNaN(d.getTime())) return '';
+    const parts=new Intl.DateTimeFormat('en-US',{timeZone:DATA.config.timezone||'America/Los_Angeles',month:'numeric',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}).formatToParts(d);
+    const get=t=>parts.find(p=>p.type===t)?.value||'';
+    return `${get('month')}/${get('day')} · ${get('hour')}:${get('minute')} ${get('dayPeriod')} ${DATA.config.timezoneLabel||'PST'}`;
+  }
   function gradeLeg(leg){
     const ev=findScore(leg); if(!ev) return {state:'open', label:'Awaiting score'};
     const team=side(ev,leg.team), opp=side(ev,leg.opponent); if(!team||!opp) return {state:'open',label:'Matchup not mapped'};
@@ -100,7 +120,7 @@
     const scoreText=`${team.name} ${team.score} – ${opp.score} ${opp.name}${ev.detail?` · ${ev.detail}`:''}`;
     if(final) return {state:result,label:result.toUpperCase(),scoreText};
     if(live) return {state:'live',label:`LIVE · ${result==='win'?'Ahead':result==='loss'?'Behind':'Push'}`,scoreText,current:result};
-    return {state:'open',label:'Not started',scoreText:ev.detail||''};
+    return {state:'open',label:'Not started',scoreText:formatKickoff(ev.date)||ev.detail||''};
   }
   function gradeTicket(ticket){
     if(!ticket.booked) return {state:'planned',label:'OPEN SLOT',pl:0,legs:[]};
