@@ -1,0 +1,21 @@
+FOOTBALL BETTING TRACKER — v1.7 MANUAL UPDATE
+
+Upload these FOUR files to the ROOT of the GitHub repository:
+
+1. index.html       — replace existing
+2. 404.html         — replace existing
+3. enhancements.js  — add/replace
+4. v17.css          — add/replace
+
+Use GitHub: Add file > Upload files.
+
+Do NOT upload only this ZIP. GitHub Pages will not extract it.
+
+v1.7 adds:
+- Automatic TV / streaming network labels in Next Up and Live Sweat when ESPN provides them.
+- Multi-leg status styling:
+    LIVE = gold highlight
+    HIT = green highlight
+    MISS = red highlight
+    UP NEXT = muted/default
+- Live Sweat gets a per-leg board so you can instantly tell which legs are live, finished, or still waiting.
