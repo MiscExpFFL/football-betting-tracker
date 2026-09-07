@@ -6,8 +6,8 @@ window.BET_TRACKER_DATA = {
     refreshSeconds: 60,
     timezone: 'America/Los_Angeles',
     timezoneLabel: 'PT',
-    build: 'v1.5',
-    lastSiteUpdate: '2026-09-03T19:12:00-07:00'
+    build: 'v1.7',
+    lastSiteUpdate: '2026-09-06T22:11:00-07:00'
   },
   leagues: {
     NCAA: {
@@ -23,7 +23,10 @@ window.BET_TRACKER_DATA = {
           tickets: [
             {id:'NCAA-W1-01',category:'Best Bet',betTypeGroup:'Spread',booked:true,description:'Tulane +7.5 at Duke',risk:110,toWin:100,odds:'-110',closingLine:null,closingOdds:null,result:null,pnl:null,settledAt:null,legs:[{gameKey:'tulane-duke',espnEventId:null,team:'Tulane',opponent:'Duke',betType:'spread',line:7.5}]},
             {id:'NCAA-W1-02',category:'Biggest Lock',betTypeGroup:'Spread',booked:true,description:'Alabama -28 vs East Carolina',risk:55,toWin:50,odds:'-110',closingLine:null,closingOdds:null,result:null,pnl:null,settledAt:null,legs:[{gameKey:'ecu-alabama',espnEventId:null,team:'Alabama',opponent:'East Carolina',betType:'spread',line:-28}]},
-            {id:'NCAA-W1-03',category:'Best Total',betTypeGroup:'Total',booked:true,description:'Western Michigan / Michigan Under 49.5',risk:55,toWin:50,odds:'-110',closingLine:null,closingOdds:null,result:null,pnl:null,settledAt:null,legs:[{gameKey:'wmu-michigan',espnEventId:null,team:'Western Michigan',opponent:'Michigan',betType:'total',direction:'under',line:49.5}]},
+
+            // CORRECTED: this was actually booked as the OVER, not the Under.
+            {id:'NCAA-W1-03',category:'Best Total',betTypeGroup:'Total',booked:true,description:'Western Michigan / Michigan Over 49.5',risk:55,toWin:50,odds:'-110',closingLine:null,closingOdds:null,result:'loss',pnl:-55,settledAt:'2026-09-06T22:11:00-07:00',legs:[{gameKey:'wmu-michigan',espnEventId:null,team:'Western Michigan',opponent:'Michigan',betType:'total',direction:'over',line:49.5}]},
+
             {id:'NCAA-W1-04',category:'Best Underdog',betTypeGroup:'Spread',booked:true,description:'Washington State +23.5 at Washington',risk:55,toWin:50,odds:'-110',closingLine:null,closingOdds:null,result:null,pnl:null,settledAt:null,legs:[{gameKey:'wsu-washington',espnEventId:null,team:'Washington State',opponent:'Washington',betType:'spread',line:23.5}]},
             {id:'NCAA-W1-05',category:'Best Bang for the Buck',betTypeGroup:'Moneyline',booked:true,description:'San Jose State ML at Eastern Michigan',risk:50,toWin:66,odds:'+132',closingLine:null,closingOdds:null,result:null,pnl:null,settledAt:null,legs:[{gameKey:'sjsu-emu',espnEventId:null,team:'San Jose State',opponent:'Eastern Michigan',betType:'moneyline'}]},
             {id:'NCAA-W1-06',category:'3-Team Parlay',betTypeGroup:'Parlay',booked:true,description:'Tulane +7.5 / Washington State +23.5 / SJSU–EMU Under 55.5',risk:50,toWin:300,odds:'+600',closingLine:null,closingOdds:null,result:null,pnl:null,settledAt:null,legs:[{gameKey:'tulane-duke',espnEventId:null,team:'Tulane',opponent:'Duke',betType:'spread',line:7.5},{gameKey:'wsu-washington',espnEventId:null,team:'Washington State',opponent:'Washington',betType:'spread',line:23.5},{gameKey:'sjsu-emu',espnEventId:null,team:'San Jose State',opponent:'Eastern Michigan',betType:'total',direction:'under',line:55.5}]},
@@ -33,7 +36,13 @@ window.BET_TRACKER_DATA = {
             {id:'NCAA-W1-10',category:'Degenerate Pick',betTypeGroup:'Total',booked:true,description:'Western Kentucky / Nevada Under 52.5',risk:55,toWin:50,odds:'-110',closingLine:null,closingOdds:null,result:null,pnl:null,settledAt:null,legs:[{gameKey:'wku-nevada',espnEventId:null,team:'Western Kentucky',opponent:'Nevada',betType:'total',direction:'under',line:52.5}]},
             {id:'NCAA-W1-11',category:'Bonus ATS',betTypeGroup:'Spread',booked:true,description:'Tulsa +13.5 vs Oklahoma State',risk:55,toWin:50,odds:'-110',closingLine:null,closingOdds:null,result:null,pnl:null,settledAt:null,legs:[{gameKey:'okstate-tulsa',espnEventId:null,team:'Tulsa',opponent:'Oklahoma State',betType:'spread',line:13.5}]},
             {id:'NCAA-W1-12',category:'Bonus ATS',betTypeGroup:'Spread',booked:true,description:'Florida Atlantic +26.5 at Florida',risk:27,toWin:25,odds:'-110',closingLine:null,closingOdds:null,result:null,pnl:null,settledAt:null,legs:[{gameKey:'fau-florida',espnEventId:null,team:'Florida Atlantic',opponent:'Florida',betType:'spread',line:26.5}]},
-            {id:'NCAA-W1-ALT',category:'Best Alternate Line',betTypeGroup:'Alternate',booked:false,description:'Notre Dame alternate line — check BetWCS game day',risk:0,toWin:0,odds:'TBD',closingLine:null,closingOdds:null,result:null,pnl:null,settledAt:null,legs:[]},
+
+            // Best Alternate Line was ultimately booked at Notre Dame -21.
+            {id:'NCAA-W1-13',category:'Best Alternate Line',betTypeGroup:'Alternate',booked:true,description:'Notre Dame -21 vs Wisconsin',risk:220,toWin:200,odds:'-110',closingLine:null,closingOdds:null,result:'win',pnl:200,settledAt:'2026-09-06T21:07:00-07:00',legs:[{gameKey:'wisconsin-nd',espnEventId:null,team:'Notre Dame',opponent:'Wisconsin',betType:'spread',line:-21}]},
+
+            // Additional straight wager.
+            {id:'NCAA-W1-14',category:'Bonus Team Total',betTypeGroup:'Team Total',booked:true,description:'Notre Dame Team Total Over 33.5 vs Wisconsin',risk:120,toWin:100,odds:'-120',closingLine:null,closingOdds:null,result:'win',pnl:100,settledAt:'2026-09-06T21:07:00-07:00',legs:[{gameKey:'wisconsin-nd',espnEventId:null,team:'Notre Dame',opponent:'Wisconsin',betType:'teamtotal',direction:'over',line:33.5}]},
+
             {id:'NCAA-W1-PASS',category:'Pass of the Week',betTypeGroup:'Pass',booked:false,pass:true,description:'SMU -3 at Florida State — intentional pass',risk:0,toWin:0,odds:'—',closingLine:null,closingOdds:null,result:null,pnl:null,settledAt:null,legs:[]}
           ]
         }
