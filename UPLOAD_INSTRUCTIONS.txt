@@ -1,21 +1,22 @@
-FOOTBALL BETTING TRACKER — v1.7 MANUAL UPDATE
+v1.7.1 CACHE-BUST FIX
 
-Upload these FOUR files to the ROOT of the GitHub repository:
+The corrected wager data IS already in the GitHub repository, but index.html was still loading:
+  data.js?v=1.7
 
-1. index.html       — replace existing
-2. 404.html         — replace existing
-3. enhancements.js  — add/replace
-4. v17.css          — add/replace
+That can cause the browser/CDN to keep serving the older cached data.js.
 
-Use GitHub: Add file > Upload files.
+Upload these THREE files to the ROOT of the repository and replace the existing versions:
+  1. index.html
+  2. 404.html
+  3. data.js
 
-Do NOT upload only this ZIP. GitHub Pages will not extract it.
+The new index/404 load data.js?v=1.7.1 and also bump all v1.7 assets to v1.7.1, forcing a fresh fetch.
 
-v1.7 adds:
-- Automatic TV / streaming network labels in Next Up and Live Sweat when ESPN provides them.
-- Multi-leg status styling:
-    LIVE = gold highlight
-    HIT = green highlight
-    MISS = red highlight
-    UP NEXT = muted/default
-- Live Sweat gets a per-leg board so you can instantly tell which legs are live, finished, or still waiting.
+Expected wager changes:
+- Western Michigan / Michigan OVER 49.5 — LOSS (-$55)
+- Notre Dame -21 — $220 risk, WIN (+$200)
+- Notre Dame Team Total OVER 33.5 — $120 risk, WIN (+$100)
+- Week 1 total booked exposure = $952 / 9.52u
+- Weekly cap remaining = $48 / 0.48u
+
+After GitHub Pages finishes deploying, hard refresh once (Ctrl+Shift+R) if needed.
