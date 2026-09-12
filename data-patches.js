@@ -6,8 +6,7 @@
   if (!ncaa) return;
 
   // Permanently freeze NCAA Week 1 now that every booked ticket is settled.
-  // This prevents the current-week/game-day widgets from continuing to treat
-  // Week 1 as active and means historical Week 1 P/L no longer depends on ESPN.
+  // Historical Week 1 P/L no longer depends on the live ESPN feed.
   const week1 = ncaa.weeks?.find(w => Number(w.week) === 1);
   if (week1) {
     week1.archived = true;
@@ -36,18 +35,19 @@
     }
   }
 
-  // Exact ESPN bindings for every NCAA Week 2 game we are exposed to.
-  // These are the source of truth for live grading; aliases are fallback only.
+  // Exact ESPN bindings + home/away identity for every NCAA Week 2 game.
+  // teamHome lets the direct event feed identify the wager side without relying
+  // on ESPN's changing display-name conventions (Arizona State vs Arizona St, etc.).
   const week2 = ncaa.weeks?.find(w => Number(w.week) === 2);
   if (week2) {
     const bindings = {
-      'asu-tamu':           { espnEventId:'401856683', team:'Arizona St', opponent:'Texas A&M' },
-      'oregon-okstate':     { espnEventId:'401856782', team:'Oregon', opponent:'Oklahoma St' },
-      'tennessee-gatech':   { espnEventId:'401856681', team:'Tennessee', opponent:'Georgia Tech' },
-      'oklahoma-michigan':  { espnEventId:'401856679', team:'Michigan', opponent:'Oklahoma' },
-      'ohiostate-texas':    { espnEventId:'401856682', team:'Ohio State', opponent:'Texas' },
-      'boisestate-memphis': { espnEventId:'401860881', team:'Memphis', opponent:'Boise St' },
-      'iowastate-iowa':     { espnEventId:'401856788', team:'Iowa State', opponent:'Iowa' }
+      'asu-tamu':           { espnEventId:'401856683', team:'Arizona State', opponent:'Texas A&M', teamHome:false },
+      'oregon-okstate':     { espnEventId:'401856782', team:'Oregon', opponent:'Oklahoma State', teamHome:false },
+      'tennessee-gatech':   { espnEventId:'401856681', team:'Tennessee', opponent:'Georgia Tech', teamHome:false },
+      'oklahoma-michigan':  { espnEventId:'401856679', team:'Michigan', opponent:'Oklahoma', teamHome:true },
+      'ohiostate-texas':    { espnEventId:'401856682', team:'Ohio State', opponent:'Texas', teamHome:false },
+      'boisestate-memphis': { espnEventId:'401860881', team:'Memphis', opponent:'Boise State', teamHome:true },
+      'iowastate-iowa':     { espnEventId:'401856788', team:'Iowa State', opponent:'Iowa', teamHome:false }
     };
     for (const ticket of week2.tickets || []) {
       for (const leg of ticket.legs || []) {
@@ -56,10 +56,11 @@
         leg.espnEventId = b.espnEventId;
         leg.team = b.team;
         leg.opponent = b.opponent;
+        leg.teamHome = b.teamHome;
       }
     }
   }
 
-  D.config.build = 'v1.7.6';
+  D.config.build = 'v1.7.7';
   D.config.lastSiteUpdate = '2026-09-12T14:05:00-07:00';
 })();
