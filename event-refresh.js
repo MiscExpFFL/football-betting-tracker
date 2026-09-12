@@ -52,6 +52,7 @@
       if (mergeEvent(r.value.item.leagueKey, r.value.ev)) updated++;
     }
 
+    if (updated && typeof B.persistScoreCache === 'function') B.persistScoreCache();
     if (updated && updateStatus) {
       const status = document.querySelector('#feedStatus');
       if (status) status.textContent = `Public score feed connected · ${updated} direct game feed${updated === 1 ? '' : 's'}`;
@@ -62,12 +63,7 @@
     return updated;
   }
 
-  // Expose this so the normal Refresh Scores path can always finish with
-  // the direct event feeds. This prevents the bulk scoreboard response from
-  // overwriting a newer direct-game result during initial page load.
   B.refreshExactEvents = refreshExactEvents;
-
-  // Safety refresh shortly after load, then keep exact event IDs fresh.
   setTimeout(() => refreshExactEvents(), 1200);
   setInterval(() => refreshExactEvents(), 30000);
 })();
