@@ -6,8 +6,8 @@ window.BET_TRACKER_DATA = {
     refreshSeconds: 60,
     timezone: 'America/Los_Angeles',
     timezoneLabel: 'PT',
-    build: 'v1.7.1',
-    lastSiteUpdate: '2026-09-06T22:11:00-07:00'
+    build: 'v1.7.2',
+    lastSiteUpdate: '2026-09-11T23:27:00-07:00'
   },
   leagues: {
     NCAA: {
@@ -36,6 +36,27 @@ window.BET_TRACKER_DATA = {
             {id:'NCAA-W1-13',category:'Best Alternate Line',betTypeGroup:'Alternate',booked:true,description:'Notre Dame -21 vs Wisconsin',risk:220,toWin:200,odds:'-110',closingLine:null,closingOdds:null,result:'win',pnl:200,settledAt:'2026-09-06T21:07:00-07:00',legs:[{gameKey:'wisconsin-nd',espnEventId:null,team:'Notre Dame',opponent:'Wisconsin',betType:'spread',line:-21}]},
             {id:'NCAA-W1-14',category:'Bonus Team Total',betTypeGroup:'Team Total',booked:true,description:'Notre Dame Team Total Over 33.5 vs Wisconsin',risk:120,toWin:100,odds:'-120',closingLine:null,closingOdds:null,result:'win',pnl:100,settledAt:'2026-09-06T21:07:00-07:00',legs:[{gameKey:'wisconsin-nd',espnEventId:null,team:'Notre Dame',opponent:'Wisconsin',betType:'teamtotal',direction:'over',line:33.5}]},
             {id:'NCAA-W1-PASS',category:'Pass of the Week',betTypeGroup:'Pass',booked:false,pass:true,description:'SMU -3 at Florida State — intentional pass',risk:0,toWin:0,odds:'—',closingLine:null,closingOdds:null,result:null,pnl:null,settledAt:null,legs:[]}
+          ]
+        },
+        {
+          week: 2,
+          label: 'Week 2',
+          dateStart: '2026-09-10',
+          dateEnd: '2026-09-14',
+          archived: false,
+          tickets: [
+            {id:'NCAA-W2-01',category:'Best Bet',betTypeGroup:'Spread',booked:true,description:'Arizona State +14.5 at Texas A&M',risk:110,toWin:100,odds:'-110',closingLine:null,closingOdds:null,result:null,pnl:null,settledAt:null,legs:[{gameKey:'asu-tamu',espnEventId:null,team:'Arizona State',opponent:'Texas A&M',betType:'spread',line:14.5}]},
+            {id:'NCAA-W2-02',category:'Biggest Lock',betTypeGroup:'Spread',booked:true,description:'Oregon -23.5 at Oklahoma State',risk:55,toWin:50,odds:'-110',closingLine:null,closingOdds:null,result:null,pnl:null,settledAt:null,legs:[{gameKey:'oregon-okstate',espnEventId:null,team:'Oregon',opponent:'Oklahoma State',betType:'spread',line:-23.5}]},
+            {id:'NCAA-W2-03',category:'Best Total',betTypeGroup:'Total',booked:true,description:'Tennessee / Georgia Tech Under 55.5',risk:55,toWin:50,odds:'-110',closingLine:null,closingOdds:null,result:null,pnl:null,settledAt:null,legs:[{gameKey:'tennessee-gatech',espnEventId:null,team:'Tennessee',opponent:'Georgia Tech',betType:'total',direction:'under',line:55.5}]},
+            {id:'NCAA-W2-04',category:'Best Underdog',betTypeGroup:'Spread',booked:true,description:'Michigan +4.5 vs Oklahoma',risk:27,toWin:25,odds:'-110',closingLine:null,closingOdds:null,result:null,pnl:null,settledAt:null,legs:[{gameKey:'oklahoma-michigan',espnEventId:null,team:'Michigan',opponent:'Oklahoma',betType:'spread',line:4.5}]},
+            {id:'NCAA-W2-05',category:'Best Bang for the Buck',betTypeGroup:'Moneyline',booked:true,description:'Ohio State ML at Texas',risk:150,toWin:160,odds:'+107',closingLine:null,closingOdds:null,result:null,pnl:null,settledAt:null,legs:[{gameKey:'ohiostate-texas',espnEventId:null,team:'Ohio State',opponent:'Texas',betType:'moneyline'}]},
+            {id:'NCAA-W2-06',category:'3-Team Parlay',betTypeGroup:'Parlay',booked:true,description:'Oregon -23.5 / Arizona State +14.5 / Tennessee–Georgia Tech Under 55.5',risk:50,toWin:300,odds:'+600',closingLine:null,closingOdds:null,result:null,pnl:null,settledAt:null,legs:[{gameKey:'oregon-okstate',espnEventId:null,team:'Oregon',opponent:'Oklahoma State',betType:'spread',line:-23.5},{gameKey:'asu-tamu',espnEventId:null,team:'Arizona State',opponent:'Texas A&M',betType:'spread',line:14.5},{gameKey:'tennessee-gatech',espnEventId:null,team:'Tennessee',opponent:'Georgia Tech',betType:'total',direction:'under',line:55.5}]},
+            {id:'NCAA-W2-07',category:'3-Team Teaser',betTypeGroup:'Teaser',booked:true,description:'Michigan +10.5 / Arizona State +20.5 / Ohio State +7.5',risk:50,toWin:90,odds:'+180',closingLine:null,closingOdds:null,result:null,pnl:null,settledAt:null,legs:[{gameKey:'oklahoma-michigan',espnEventId:null,team:'Michigan',opponent:'Oklahoma',betType:'spread',line:10.5},{gameKey:'asu-tamu',espnEventId:null,team:'Arizona State',opponent:'Texas A&M',betType:'spread',line:20.5},{gameKey:'ohiostate-texas',espnEventId:null,team:'Ohio State',opponent:'Texas',betType:'spread',line:7.5}]},
+            {id:'NCAA-W2-08',category:'3-Team Underdog Parlay',betTypeGroup:'Parlay',booked:true,description:'Michigan ML +175 / Memphis ML +285 / Ohio State ML +107',risk:50,toWin:1045,odds:'+2090',closingLine:null,closingOdds:null,result:null,pnl:null,settledAt:null,legs:[{gameKey:'oklahoma-michigan',espnEventId:null,team:'Michigan',opponent:'Oklahoma',betType:'moneyline'},{gameKey:'boisestate-memphis',espnEventId:null,team:'Memphis',opponent:'Boise State',betType:'moneyline'},{gameKey:'ohiostate-texas',espnEventId:null,team:'Ohio State',opponent:'Texas',betType:'moneyline'}]},
+            {id:'NCAA-W2-09',category:'So Crazy It Just Might Work',betTypeGroup:'Moneyline',booked:true,description:'Memphis ML vs Boise State',risk:25,toWin:71,odds:'+285',closingLine:null,closingOdds:null,result:null,pnl:null,settledAt:null,legs:[{gameKey:'boisestate-memphis',espnEventId:null,team:'Memphis',opponent:'Boise State',betType:'moneyline'}]},
+            {id:'NCAA-W2-10',category:'Degenerate Pick',betTypeGroup:'Spread',booked:true,description:'Iowa State +14 at Iowa',risk:27,toWin:25,odds:'-110',closingLine:null,closingOdds:null,result:null,pnl:null,settledAt:null,legs:[{gameKey:'iowastate-iowa',espnEventId:null,team:'Iowa State',opponent:'Iowa',betType:'spread',line:14}]},
+            {id:'NCAA-W2-ALT',category:'Best Alternate Line',betTypeGroup:'Alternate',booked:false,description:'Standalone Michigan +10.5 or better — not booked yet',risk:0,toWin:0,odds:'TBD',closingLine:null,closingOdds:null,result:null,pnl:null,settledAt:null,legs:[]},
+            {id:'NCAA-W2-PASS',category:'Pass of the Week',betTypeGroup:'Pass',booked:false,pass:true,description:'Oklahoma / Michigan Total 44 — intentional pass',risk:0,toWin:0,odds:'—',closingLine:null,closingOdds:null,result:null,pnl:null,settledAt:null,legs:[]}
           ]
         }
       ]
