@@ -13,12 +13,35 @@
   async function fetchLeagueScores(key,league){
     const active=league.weeks.filter(w=>!w.archived&&w.dateStart&&w.dateEnd),weeks=active.length?active:(league.weeks.length?[league.weeks.at(-1)]:[]);if(!weeks.length){state.scores[key]=[];return}
     const extra=key==='NCAA'?'&groups=80&limit=1000':'&limit=100';
-    const batches=await Promise.all(weeks.map(async w=>{const url=`https://site.api.espn.com/apis/site/v2/sports/football/${league.espnPath}/scoreboard?dates=${ymd(w.dateStart)}-${ymd(w.dateEnd)}${extra}`;const res=await fetch(url,{cache:'no-store'});if(!res.ok)throw new Error(`${key} ${res.status}`);const json=await res.json();return(json.events||[]).map(extractEvent).filter(Boolean)}));
-    const dedup=new Map();batches.flat().forEach(ev=>dedup.set(String(ev.id),ev));state.scores[key]=[...dedup.values()];
+    const batches=await Promise.all(weeks.map(async w=>{const url=`https://site.api.espn.com/apis/site/v2/sports/football/${league.espnPath}/scoreboard?dates=${ymd(w.dateStart)}-${ymd(w.dateEnd)}${extra}&_=${Date.now()}`;const res=await fetch(url,{cache:'no-store'});if(!res.ok)throw new Error(`${key} ${res.status}`);const json=await res.json();return(json.events||[]).map(extractEvent).filter(Boolean)}));
+
+    // Preserve newer direct-event results if they already arrived. The old code
+    // replaced the entire league score array here, which caused a race on page
+    // load: the direct Arizona State result would render correctly, then a slower
+    // bulk scoreboard response could overwrite it with stale/missing data.
+    const dedup=new Map();
+    for(const ev of state.scores[key]||[]){if(ev?._directEventFeed)dedup.set(String(ev.id),ev)}
+    for(const ev of batches.flat()){
+      const id=String(ev.id);
+      if(!dedup.has(id))dedup.set(id,ev);
+    }
+    state.scores[key]=[...dedup.values()];
   }
   async function refreshScores(){
-    $('#feedStatus').textContent='Refreshing public scores…';$('#liveDot').classList.remove('live');const results=await Promise.allSettled(Object.entries(DATA.leagues).map(([k,l])=>fetchLeagueScores(k,l))),failed=results.filter(x=>x.status==='rejected');state.lastRefresh=new Date();$('#lastRefresh').textContent=`Last refresh: ${formatStamp(state.lastRefresh.toISOString())}`;
-    if(failed.length)$('#feedStatus').textContent=`Score feed partially available (${failed.length} league${failed.length>1?'s':''} failed)`;else{$('#feedStatus').textContent='Public score feed connected';$('#liveDot').classList.add('live')}
+    $('#feedStatus').textContent='Refreshing public scores…';$('#liveDot').classList.remove('live');
+    const results=await Promise.allSettled(Object.entries(DATA.leagues).map(([k,l])=>fetchLeagueScores(k,l))),failed=results.filter(x=>x.status==='rejected');
+
+    // Always finish a normal refresh with exact ESPN event feeds when available.
+    // event-refresh.js is loaded immediately after this file, and by the time the
+    // network scoreboard requests finish its function is available on B.
+    let directUpdated=0;
+    if(typeof B.refreshExactEvents==='function'){
+      try{directUpdated=await B.refreshExactEvents({render:false,updateStatus:false})}catch(e){console.warn('Direct event refresh failed',e)}
+    }
+
+    state.lastRefresh=new Date();$('#lastRefresh').textContent=`Last refresh: ${formatStamp(state.lastRefresh.toISOString())}`;
+    if(failed.length)$('#feedStatus').textContent=`Score feed partially available (${failed.length} league${failed.length>1?'s':''} failed)`;
+    else{$('#feedStatus').textContent=directUpdated?`Public score feed connected · ${directUpdated} direct game feed${directUpdated===1?'':'s'}`:'Public score feed connected';$('#liveDot').classList.add('live')}
     renderAll();
   }
   function exportResults(){
