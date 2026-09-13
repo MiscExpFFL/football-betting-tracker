@@ -36,8 +36,8 @@
   }
 
   // Exact ESPN bindings + home/away identity for every NCAA Week 2 game.
-  // teamHome lets the direct event feed identify the wager side without relying
-  // on ESPN's changing display-name conventions (Arizona State vs Arizona St, etc.).
+  // teamHome is a fallback only; event-refresh.js now matches actual participant
+  // identity first so a bad home/away flag can never silently reverse a result.
   const week2 = ncaa.weeks?.find(w => Number(w.week) === 2);
   if (week2) {
     const bindings = {
@@ -46,7 +46,7 @@
       'tennessee-gatech':   { espnEventId:'401856681', team:'Tennessee', opponent:'Georgia Tech', teamHome:false },
       'oklahoma-michigan':  { espnEventId:'401856679', team:'Michigan', opponent:'Oklahoma', teamHome:true },
       'ohiostate-texas':    { espnEventId:'401856682', team:'Ohio State', opponent:'Texas', teamHome:false },
-      'boisestate-memphis': { espnEventId:'401860881', team:'Memphis', opponent:'Boise State', teamHome:true },
+      'boisestate-memphis': { espnEventId:'401860881', team:'Memphis', opponent:'Boise State', teamHome:false },
       'iowastate-iowa':     { espnEventId:'401856788', team:'Iowa State', opponent:'Iowa', teamHome:false }
     };
     for (const ticket of week2.tickets || []) {
@@ -61,6 +61,6 @@
     }
   }
 
-  D.config.build = 'v1.7.7';
-  D.config.lastSiteUpdate = '2026-09-12T14:05:00-07:00';
+  D.config.build = 'v1.7.8';
+  D.config.lastSiteUpdate = '2026-09-12T18:36:00-07:00';
 })();
