@@ -50,29 +50,33 @@
     return vals.some(v => (keys || []).some(k => v === k || v.includes(k) || k.includes(v)));
   }
 
+  function identityIndexes(ev,item) {
+    const keys = identityKeys[item.gameKey];
+    if (!keys || !ev?.teams || ev.teams.length !== 2) return null;
+    const ti = ev.teams.findIndex(t => matchesAny(t,keys[0]));
+    const oi = ev.teams.findIndex((t,i) => i !== ti && matchesAny(t,keys[1]));
+    return ti >= 0 && oi >= 0 && ti !== oi ? {ti,oi} : null;
+  }
+
   function validateIdentity(ev,item) {
     const keys = identityKeys[item.gameKey];
-    if (!keys || !ev?.teams || ev.teams.length !== 2) return true;
-    const teamHits = ev.teams.map((t,i)=>matchesAny(t,keys[0])?i:-1).filter(i=>i>=0);
-    const oppHits = ev.teams.map((t,i)=>matchesAny(t,keys[1])?i:-1).filter(i=>i>=0);
-    return teamHits.some(i=>oppHits.some(j=>i!==j));
+    if (!keys) return true;
+    return !!identityIndexes(ev,item);
   }
 
   function alignNames(ev,item) {
     if (!ev?.teams || ev.teams.length !== 2) return ev;
-    let ti = -1, oi = -1;
 
-    if (typeof item.teamHome === 'boolean') {
+    // Participant identity is authoritative. Home/away is only a fallback for
+    // games without an identity map. This prevents an incorrect teamHome flag
+    // from swapping the two competitors and reversing a moneyline result.
+    const ids = identityIndexes(ev,item);
+    let ti = ids?.ti ?? -1;
+    let oi = ids?.oi ?? -1;
+
+    if ((ti < 0 || oi < 0 || ti === oi) && !identityKeys[item.gameKey] && typeof item.teamHome === 'boolean') {
       ti = ev.teams.findIndex(t => t.home === item.teamHome);
-      oi = ev.teams.findIndex(t => t.home !== item.teamHome);
-    }
-
-    if (ti < 0 || oi < 0 || ti === oi) {
-      const keys = identityKeys[item.gameKey];
-      if (keys) {
-        ti = ev.teams.findIndex(t => matchesAny(t,keys[0]));
-        oi = ev.teams.findIndex((t,i) => i !== ti && matchesAny(t,keys[1]));
-      }
+      oi = ev.teams.findIndex((t,i) => i !== ti && t.home !== item.teamHome);
     }
 
     if (ti >= 0 && oi >= 0 && ti !== oi) {
