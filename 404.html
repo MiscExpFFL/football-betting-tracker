@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="styles.css?v=1.4">
   <link rel="stylesheet" href="v15.css?v=1.5">
   <link rel="stylesheet" href="v16.css?v=1.6">
-  <link rel="stylesheet" href="v17.css?v=1.7.11">
+  <link rel="stylesheet" href="v17.css?v=1.8.0">
 </head>
 <body>
   <div class="wrap">
@@ -19,7 +19,7 @@
       <div>
         <div class="eyebrow">2026 Football Betting Lab</div>
         <h1>Live Betting Tracker</h1>
-        <div class="sub">NCAA and NFL stay separate. Exact BetWCS tickets are graded against public scores, with a game-day control center, TV/stream information, live multi-leg tracking, risk concentration, CLV, streaks, drawdown, category performance and permanent week-by-week profit/loss.</div>
+        <div class="sub">Profit-first betting tracker. NCAA, NFL and cross-league tickets are tracked separately, with exact BetWCS wagers graded against public scores, live multi-leg tracking, risk concentration, CLV and permanent week-by-week profit/loss.</div>
         <div class="statusline"><span id="liveDot" class="dot"></span><span id="feedStatus">Loading public score feed…</span><span class="sep">•</span><span id="lastRefresh">Last refresh: —</span><span class="sep">•</span><span id="siteUpdated">Site updated: —</span></div>
       </div>
       <div class="actions"><button class="btn" id="refreshBtn" type="button">Refresh scores</button><button class="btn" id="manualBtn" type="button">Manual scores</button><button class="btn primary" id="exportBtn" type="button">Export results</button></div>
@@ -34,21 +34,22 @@
     <main id="leagueSections"></main>
     <section id="weekRecaps"></section>
     <section id="analytics"></section>
-    <div class="footer">Public scores are used only for grading. This site does not connect to BetWCS and cannot place wagers. Completed weeks are permanently archived in the repository. · Build v1.7.11</div>
+    <div class="footer">Public scores are used only for grading. This site does not connect to BetWCS and cannot place wagers. Completed weeks are permanently archived in the repository. · Build v1.8.0</div>
   </div>
   <dialog id="manualDialog"><div class="modal-head"><div><h3>Manual score overrides</h3><div class="small">Use only if the public feed is delayed or a matchup is not recognized.</div></div><button class="btn" id="closeManual" type="button">Close</button></div><div class="modal-body"><div id="overrideRows"></div><div class="modal-actions"><button class="btn" id="clearOverrides" type="button">Clear overrides</button><button class="btn primary" id="saveOverrides" type="button">Save & grade</button></div></div></dialog>
-  <script src="data.js?v=1.7.11"></script>
-  <script src="data-patches.js?v=1.7.11"></script>
-  <script src="nfl-additions.js?v=1.7.11"></script>
-  <script src="score-fixes.js?v=1.7.11"></script>
-  <script src="result-fixes.js?v=1.7.11"></script>
-  <script>if(window.BET_TRACKER_DATA){window.BET_TRACKER_DATA.config.build='v1.7.11';window.BET_TRACKER_DATA.config.lastSiteUpdate='2026-09-13T18:40:00-07:00';}</script>
-  <script src="core.js?v=1.7.11"></script>
-  <script src="ui.js?v=1.7.11"></script>
-  <script src="analytics.js?v=1.7.11"></script>
-  <script src="gameday.js?v=1.7.11"></script>
-  <script src="enhancements.js?v=1.7.11"></script>
-  <script src="event-refresh.js?v=1.7.11"></script>
-  <script src="boot.js?v=1.7.11"></script>
+  <script src="data.js?v=1.8.0"></script>
+  <script src="data-patches.js?v=1.8.0"></script>
+  <script src="nfl-additions.js?v=1.8.0"></script>
+  <script src="score-fixes.js?v=1.8.0"></script>
+  <script src="result-fixes.js?v=1.8.0"></script>
+  <script src="week3-additions.js?v=1.8.0"></script>
+  <script>if(window.BET_TRACKER_DATA){window.BET_TRACKER_DATA.config.build='v1.8.0';window.BET_TRACKER_DATA.config.lastSiteUpdate='2026-09-18T14:45:00-07:00';}</script>
+  <script src="core.js?v=1.8.0"></script>
+  <script src="ui.js?v=1.8.0"></script>
+  <script src="analytics.js?v=1.8.0"></script>
+  <script src="gameday.js?v=1.8.0"></script>
+  <script src="enhancements.js?v=1.8.0"></script>
+  <script src="event-refresh.js?v=1.8.0"></script>
+  <script src="boot.js?v=1.8.0"></script>
 </body>
 </html>
