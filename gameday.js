@@ -10,7 +10,7 @@
 
   function activeWeekFor(key){
     const league=DATA.leagues[key];
-    return league.weeks.find(w=>!w.archived) || league.weeks.at(-1) || null;
+    return [...league.weeks].reverse().find(w=>!w.archived) || league.weeks.at(-1) || null;
   }
 
   function bookedTickets(key, week=null){
