@@ -8,7 +8,7 @@
     scores: {},
     overrides: JSON.parse(localStorage.getItem('football-score-overrides') || '{}'),
     selectedWeeks: {},
-    filters: { NCAA: 'all', NFL: 'all' },
+    filters: { NCAA: 'all', NFL: 'all', CROSS: 'all' },
     lastRefresh: null
   };
 
@@ -29,7 +29,14 @@
     'east carolina':['eastcarolina','ecu'], 'notre dame':['notredame','nd'], 'oklahoma state':['oklahomastate','oklahomast','okstate','okst'],
     'tulane':['tulane','tuln'], 'duke':['duke'], 'alabama':['alabama','ala'], 'auburn':['auburn','aub'],
     'baylor':['baylor','bay'], 'wisconsin':['wisconsin','wis'], 'wyoming':['wyoming','wyo'], 'toledo':['toledo','tol'],
-    'nevada':['nevada','nev'], 'tulsa':['tulsa','tlsa'], 'florida':['florida','fla']
+    'nevada':['nevada','nev'], 'tulsa':['tulsa','tlsa'], 'florida':['florida','fla'],
+    'miami (fl)':['miami','miamifl','mia'], 'wake forest':['wakeforest','wake','wf'],
+    'houston':['houston','hou'], 'texas tech':['texastech','ttu','tt'], 'nc state':['ncstate','ncsu','ncst'],
+    'vanderbilt':['vanderbilt','vandy','van'], 'kentucky':['kentucky','uk'], 'texas a&m':['texasam','tamu','aggies'],
+    'ole miss':['olemiss','mississippi','miss'], 'lsu':['lsu','louisianastate'],
+    'philadelphia eagles':['philadelphiaeagles','philadelphia','phi','eagles'], 'tennessee titans':['tennesseetitans','tennessee','ten','titans'],
+    'jacksonville jaguars':['jacksonvillejaguars','jacksonville','jax','jaguars'], 'denver broncos':['denverbroncos','denver','den','broncos'],
+    'pittsburgh steelers':['pittsburghsteelers','pittsburgh','pit','steelers'], 'new england patriots':['newenglandpatriots','newengland','ne','patriots']
   };
   const variantsFor = input => {
     const key=String(input||'').toLowerCase();
@@ -61,9 +68,10 @@
   }
   function findScore(leg,leagueKey){
     const override=state.overrides[leg.gameKey]; if(override)return override;
-    const events=state.scores[leagueKey]||[];
-    if(leg.espnEventId){const byId=events.find(ev=>String(ev.id)===String(leg.espnEventId));if(byId)return byId}
-    return events.find(ev=>eventMatchesLeg(ev,leg))||null;
+    const primary=state.scores[leagueKey]||[];
+    const all=[...primary,...Object.entries(state.scores).filter(([k])=>k!==leagueKey).flatMap(([,events])=>events||[])];
+    if(leg.espnEventId){const byId=all.find(ev=>String(ev.id)===String(leg.espnEventId));if(byId)return byId}
+    return all.find(ev=>eventMatchesLeg(ev,leg))||null;
   }
   function teamIndex(ev,name){
     if(!ev?.teams)return-1;
