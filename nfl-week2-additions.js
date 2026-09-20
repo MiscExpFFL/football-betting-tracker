@@ -119,6 +119,26 @@
     }
   ];
 
-  D.config.build = 'v1.8.4';
-  D.config.lastSiteUpdate = '2026-09-20T00:55:00-07:00';
+  // Exact ESPN bindings for the Week 2 games already live on Sunday.
+  // These bypass bulk scoreboard/name matching so live scores grade directly.
+  const liveBindings = {
+    'cin-hou': { espnEventId:'401872934', teamHome:false },
+    'cle-tb':  { espnEventId:'401872935', teamHome:true },
+    'gb-nyj':  { espnEventId:'401872936', teamHome:false },
+    'min-chi': { espnEventId:'401872937', teamHome:false },
+    'no-bal':  { espnEventId:'401872938', teamHome:false },
+    'phi-ten': { espnEventId:'401872939', teamHome:false },
+    'pit-ne':  { espnEventId:'401872946', teamHome:false }
+  };
+  for (const ticket of week2.tickets || []) {
+    for (const leg of ticket.legs || []) {
+      const b = liveBindings[leg.gameKey];
+      if (!b) continue;
+      leg.espnEventId = b.espnEventId;
+      leg.teamHome = b.teamHome;
+    }
+  }
+
+  D.config.build = 'v1.8.5';
+  D.config.lastSiteUpdate = '2026-09-20T12:40:00-07:00';
 })();
