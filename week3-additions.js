@@ -134,6 +134,6 @@
     }]
   };
 
-  D.config.build = 'v1.8.2';
-  D.config.lastSiteUpdate = '2026-09-20T00:34:00-07:00';
+  D.config.build = 'v1.8.3';
+  D.config.lastSiteUpdate = '2026-09-20T00:40:00-07:00';
 })();
