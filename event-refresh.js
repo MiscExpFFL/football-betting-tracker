@@ -15,7 +15,14 @@
     'houston-texastech':     [['houston','hou'],['texastech','ttu']],
     'ncstate-vandy':         [['vanderbilt','vandy','van'],['ncstate','ncsu','ncst']],
     'kentucky-tamu':         [['texasam','tamu','aggies'],['kentucky','uk']],
-    'lsu-olemiss':           [['olemiss','mississippi','miss'],['lsu','louisianastate']]
+    'lsu-olemiss':           [['olemiss','mississippi','miss'],['lsu','louisianastate']],
+    'cin-hou':               [['cincinnatibengals','cincinnati','cin','bengals'],['houstontexans','houston','hou','texans']],
+    'cle-tb':                [['tampabaybuccaneers','tampabay','tb','buccaneers','bucs'],['clevelandbrowns','cleveland','cle','browns']],
+    'gb-nyj':                [['greenbaypackers','greenbay','gb','packers'],['newyorkjets','newyork','nyj','jets']],
+    'min-chi':               [['minnesotavikings','minnesota','min','vikings'],['chicagobears','chicago','chi','bears']],
+    'no-bal':                [['neworleanssaints','neworleans','no','saints'],['baltimoreravens','baltimore','bal','ravens']],
+    'phi-ten':               [['philadelphiaeagles','philadelphia','phi','eagles'],['tennesseetitans','tennessee','ten','titans']],
+    'pit-ne':                [['pittsburghsteelers','pittsburgh','pit','steelers'],['newenglandpatriots','newengland','ne','patriots']]
   };
 
   const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'');
