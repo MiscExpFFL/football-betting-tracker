@@ -36,7 +36,15 @@
     'ole miss':['olemiss','mississippi','miss'], 'lsu':['lsu','louisianastate'],
     'philadelphia eagles':['philadelphiaeagles','philadelphia','phi','eagles'], 'tennessee titans':['tennesseetitans','tennessee','ten','titans'],
     'jacksonville jaguars':['jacksonvillejaguars','jacksonville','jax','jaguars'], 'denver broncos':['denverbroncos','denver','den','broncos'],
-    'pittsburgh steelers':['pittsburghsteelers','pittsburgh','pit','steelers'], 'new england patriots':['newenglandpatriots','newengland','ne','patriots']
+    'pittsburgh steelers':['pittsburghsteelers','pittsburgh','pit','steelers'], 'new england patriots':['newenglandpatriots','newengland','ne','patriots'],
+    'minnesota vikings':['minnesotavikings','minnesota','min','vikings'], 'chicago bears':['chicagobears','chicago','chi','bears'],
+    'tampa bay buccaneers':['tampabaybuccaneers','tampabay','tb','buccaneers','bucs'], 'cleveland browns':['clevelandbrowns','cleveland','cle','browns'],
+    'new orleans saints':['neworleanssaints','neworleans','no','saints'], 'baltimore ravens':['baltimoreravens','baltimore','bal','ravens'],
+    'arizona cardinals':['arizonacardinals','arizona','ari','cardinals'], 'seattle seahawks':['seattleseahawks','seattle','sea','seahawks'],
+    'san francisco 49ers':['sanfrancisco49ers','sanfrancisco','sf','49ers'], 'miami dolphins':['miamidolphins','miami','mia','dolphins'],
+    'kansas city chiefs':['kansascitychiefs','kansascity','kc','chiefs'], 'indianapolis colts':['indianapoliscolts','indianapolis','ind','colts'],
+    'cincinnati bengals':['cincinnatibengals','cincinnati','cin','bengals'], 'houston texans':['houstontexans','houston','hou','texans'],
+    'green bay packers':['greenbaypackers','greenbay','gb','packers'], 'new york jets':['newyorkjets','newyork','nyj','jets']
   };
   const variantsFor = input => {
     const key=String(input||'').toLowerCase();
