@@ -10,7 +10,12 @@
     'oklahoma-michigan':     [['michigan','mich'],['oklahoma','sooners','ou']],
     'ohiostate-texas':       [['ohiostate','osu'],['texas','longhorns','tex']],
     'boisestate-memphis':    [['memphis','mem'],['boisestate','boisest','bois']],
-    'iowastate-iowa':        [['iowastate','isu'],['iowahawkeyes','iowa']]
+    'iowastate-iowa':        [['iowastate','isu'],['iowahawkeyes','iowa']],
+    'miami-wake':            [['wakeforest','wake','wf'],['miami','miamifl','mia']],
+    'houston-texastech':     [['houston','hou'],['texastech','ttu']],
+    'ncstate-vandy':         [['vanderbilt','vandy','van'],['ncstate','ncsu','ncst']],
+    'kentucky-tamu':         [['texasam','tamu','aggies'],['kentucky','uk']],
+    'lsu-olemiss':           [['olemiss','mississippi','miss'],['lsu','louisianastate']]
   };
 
   const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'');
